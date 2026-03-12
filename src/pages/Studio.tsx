@@ -72,7 +72,7 @@ const skills = [
   "IA appliquée à la création visuelle"
 ];
 
-export default function ProfileCV() {
+export default function Studio() {
   return (
     <div className="w-full min-h-screen pt-40 pb-32 bg-ink">
       <div className="max-w-[90rem] mx-auto px-6">
@@ -84,7 +84,7 @@ export default function ProfileCV() {
           className="mb-32"
         >
           <h1 className="text-6xl md:text-[5.5rem] font-display font-bold tracking-tighter mb-10 leading-[1.05] text-white">
-            Profil et CV<span className="text-lemon">.</span>
+            Studio<span className="text-lemon">.</span>
           </h1>
         </motion.div>
 
@@ -113,28 +113,28 @@ export default function ProfileCV() {
             className="lg:col-span-7 flex flex-col gap-16 text-lg md:text-xl text-paper/70 font-light leading-relaxed"
           >
             <p className="text-3xl md:text-4xl text-white font-display font-medium leading-[1.2] tracking-tight">
-              Professionnel senior de la production graphique, je cumule plus de 15 ans d'expérience en prépresse industrielle, création graphique et coordination de flux print et digitaux.
+              Un studio créatif avec plus de 15 ans d'expérience en prépresse industrielle, création graphique et coordination de flux print et digitaux.
             </p>
             
             <div className="flex flex-col gap-12">
               <div className="pl-8 border-l border-white/10">
-                <h3 className="text-lemon font-semibold text-xs uppercase tracking-[0.2em] mb-4">Interface Stratégique</h3>
+                <h3 className="text-lemon font-semibold text-xs uppercase tracking-[0.2em] mb-4">Vision</h3>
                 <p>
-                  Expert de la chaîne graphique, de la conformité fichiers et de la qualité couleur, j'interviens comme interface stratégique entre création, production et contraintes techniques.
+                  Mon studio a pour vision d'être le partenaire stratégique des entreprises exigeantes, en transformant leurs idées en produits graphiques et digitaux d’exception. Je crois en une approche holistique où la direction artistique, la photographie et l’expertise technique convergent pour créer des expériences de marque mémorables et performantes.
                 </p>
               </div>
 
               <div className="pl-8 border-l border-white/10">
-                <h3 className="text-lemon font-semibold text-xs uppercase tracking-[0.2em] mb-4">Optimisation & Fiabilité</h3>
+                <h3 className="text-lemon font-semibold text-xs uppercase tracking-[0.2em] mb-4">Expérience</h3>
                 <p>
-                  Habitué à structurer et optimiser les workflows, sécuriser les livrables et accompagner les équipes, je veille à la fluidité des opérations de la conception jusqu'à la post-fabrication.
+                  Avec un parcours unique qui me confère une maîtrise complète de la chaîne de production, je garantis non seulement la créativité mais aussi la faisabilité et la qualité de chaque projet. Mon expertise technique assure une exécution sans faille, de la conception à la livraison.
                 </p>
               </div>
 
               <div className="pl-8 border-l border-white/10">
-                <h3 className="text-lemon font-semibold text-xs uppercase tracking-[0.2em] mb-4">Innovation & IA</h3>
+                <h3 className="text-lemon font-semibold text-xs uppercase tracking-[0.2em] mb-4">Expertise Hybride</h3>
                 <p>
-                  Je développe aujourd'hui une expertise en automatisation et en intelligence artificielle appliquée aux métiers créatifs, dans une logique de performance, de fiabilité et d'innovation.
+                  Je combine une sensibilité artistique avec une rigueur technique. Cette double compétence me permet de piloter des projets complexes, en assurant la cohérence entre l'intention créative et la réalité de la production. Mon studio est le pont entre l'art et l'industrie, le design et la technique.
                 </p>
               </div>
             </div>

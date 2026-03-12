@@ -28,7 +28,7 @@ const projects = [
   }
 ];
 
-export default function Projects() {
+export default function Realisations() {
   return (
     <div className="w-full min-h-screen pt-40 pb-32 bg-ink">
       <div className="max-w-[90rem] mx-auto px-6">
@@ -39,7 +39,7 @@ export default function Projects() {
           className="mb-32 max-w-4xl"
         >
           <h1 className="text-6xl md:text-[5.5rem] font-display font-bold tracking-tighter mb-10 leading-[1.05] text-white">
-            Projets<span className="text-lemon">.</span>
+            Réalisations<span className="text-lemon">.</span>
           </h1>
           <p className="text-xl md:text-2xl text-paper/80 font-light leading-relaxed">
             Une sélection de réalisations récentes, illustrant mon approche du design, de la photographie et de la production imprimée.

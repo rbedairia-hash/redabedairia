@@ -55,33 +55,37 @@ export default function Home() {
             >
               J'accompagne les entreprises, marques et entrepreneurs dans la création d'identités visuelles, de contenus photographiques et de supports de communication pensés pour être cohérents, impactants et parfaitement exécutés.
             </motion.p>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              className="flex flex-wrap gap-6 mt-4"
-            >
-              <Link 
-                to="/projects" 
-                className="inline-flex items-center gap-3 bg-lemon text-ink px-8 py-4 rounded-full font-semibold hover:bg-white transition-colors text-sm tracking-wide uppercase"
+            
+            <div className="flex flex-col items-start mt-4">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                className="flex flex-wrap gap-6"
               >
-                Découvrir mes réalisations <ArrowRight size={18} />
-              </Link>
-              <Link 
-                to="/contact" 
-                className="inline-flex items-center gap-3 border border-white/20 px-8 py-4 rounded-full font-semibold hover:border-lemon hover:text-lemon transition-colors text-sm tracking-wide uppercase"
+                <Link 
+                  to="/realisations" 
+                  className="inline-flex items-center gap-3 bg-lemon text-ink px-8 py-4 rounded-full font-semibold hover:bg-white transition-colors text-sm tracking-wide uppercase"
+                >
+                  Découvrir les réalisations <ArrowRight size={18} />
+                </Link>
+                <Link 
+                  to="/contact" 
+                  className="inline-flex items-center gap-3 border border-white/20 px-8 py-4 rounded-full font-semibold hover:border-lemon hover:text-lemon transition-colors text-sm tracking-wide uppercase"
+                >
+                  Parler de votre projet
+                </Link>
+              </motion.div>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                className="text-lg md:text-xl text-muted font-light tracking-[0.05em] mt-8 w-full text-center relative top-6 -left-10"
               >
-                Parler de votre projet
-              </Link>
-            </motion.div>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-              className="text-lg md:text-xl text-muted font-light tracking-[0.05em] mt-8 w-full text-center"
-            >
-              Faire de l'image un levier de croissance.
-            </motion.p>
+                Faire de l'image un levier de croissance.
+              </motion.p>
+            </div>
+
           </motion.div>
           
           <motion.div 
@@ -196,9 +200,9 @@ export default function Home() {
       <section className="bg-surface relative">
         <div className="max-w-[90rem] mx-auto px-6 pt-20 pb-12">
           <div className="flex justify-between items-end">
-            <h2 className="text-5xl md:text-[4rem] font-display font-bold tracking-tighter">Projets Récents</h2>
-            <Link to="/projects" className="hidden md:inline-flex items-center gap-3 text-sm tracking-wide uppercase font-semibold text-lemon hover:text-white transition-colors">
-              Tous les projets <ArrowRight size={18} />
+            <h2 className="text-5xl md:text-[4rem] font-display font-bold tracking-tighter">Réalisations Récentes</h2>
+            <Link to="/realisations" className="hidden md:inline-flex items-center gap-3 text-sm tracking-wide uppercase font-semibold text-lemon hover:text-white transition-colors">
+              Toutes les réalisations <ArrowRight size={18} />
             </Link>
           </div>
         </div>
@@ -224,7 +228,7 @@ export default function Home() {
                 <span className="text-lemon text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mb-4 block">{project.category}</span>
                 <div className="flex justify-between items-end gap-8">
                   <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">{project.title}</h3>
-                  <Link to="/projects" className="hidden md:flex items-center justify-center w-16 h-16 rounded-full bg-lemon text-ink hover:scale-110 transition-transform duration-500 shrink-0">
+                  <Link to="/realisations" className="hidden md:flex items-center justify-center w-16 h-16 rounded-full bg-lemon text-ink hover:scale-110 transition-transform duration-500 shrink-0">
                     <ArrowRight size={24} />
                   </Link>
                 </div>
@@ -234,8 +238,8 @@ export default function Home() {
         </div>
         
         <div className="pb-40 pt-12 text-center md:hidden">
-          <Link to="/projects" className="inline-flex items-center gap-3 text-sm tracking-wide uppercase font-semibold text-lemon hover:text-white transition-colors">
-            Tous les projets <ArrowRight size={18} />
+          <Link to="/realisations" className="inline-flex items-center gap-3 text-sm tracking-wide uppercase font-semibold text-lemon hover:text-white transition-colors">
+            Toutes les réalisations <ArrowRight size={18} />
           </Link>
         </div>
       </section>

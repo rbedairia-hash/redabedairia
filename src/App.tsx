@@ -1,16 +1,10 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Expertise from './pages/Expertise';
-import Projects from './pages/Projects';
-import Photography from './pages/Photography';
-import Process from './pages/Process';
-import ProfileCV from './pages/ProfileCV';
+import Realisations from './pages/Realisations';
+import Methode from './pages/Methode';
+import Studio from './pages/Studio';
 import Contact from './pages/Contact';
 
 export default function App() {
@@ -19,11 +13,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="profile-cv" element={<ProfileCV />} />
+          <Route path="studio" element={<Studio />} />
           <Route path="expertise" element={<Expertise />} />
-          <Route path="projects" element={<Projects />} />
-          <Route path="photography" element={<Photography />} />
-          <Route path="process" element={<Process />} />
+          <Route path="realisations" element={<Realisations />} />
+          <Route path="methode" element={<Methode />} />
           <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>

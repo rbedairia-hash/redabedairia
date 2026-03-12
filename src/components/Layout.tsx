@@ -7,10 +7,9 @@ import RandomCharacterReveal from './SplitFlapText';
 const navLinks = [
   { name: 'Accueil', path: '/' },
   { name: 'Expertise', path: '/expertise' },
-  { name: 'Projets', path: '/projects' },
-  { name: 'Photographie', path: '/photography' },
-  { name: 'Process', path: '/process' },
-  { name: 'PROFIL & CV', path: '/profile-cv' },
+  { name: 'Réalisations', path: '/realisations' },
+  { name: 'Méthode', path: '/methode' },
+  { name: 'Studio', path: '/studio' },
   { name: 'Contact', path: '/contact' },
 ];
 
@@ -54,7 +53,7 @@ export default function Layout() {
           </Link>
           
           {/* Desktop Nav */}
-          <nav className="hidden md:flex gap-10">
+          <nav className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <Link 
                 key={link.path} 
@@ -71,6 +70,9 @@ export default function Layout() {
                 />
               </Link>
             ))}
+             <Link to="/contact" className="ml-4 px-6 py-3 text-xs tracking-[0.15em] uppercase font-semibold text-ink bg-lemon rounded-full hover:bg-lemon/90 transition-all duration-300">
+                Discuter d’un projet
+             </Link>
           </nav>
 
           {/* Mobile Menu Toggle */}
@@ -108,6 +110,9 @@ export default function Layout() {
                   {link.name}
                 </Link>
               ))}
+               <Link to="/contact" className="mt-8 px-8 py-4 text-lg tracking-[0.15em] uppercase font-semibold text-ink bg-lemon rounded-full hover:bg-lemon/90 transition-all duration-300">
+                Discuter d’un projet
+             </Link>
             </nav>
           </motion.div>
         )}
