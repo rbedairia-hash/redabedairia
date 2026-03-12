@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Mail, Linkedin, MapPin, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 
 export default function Contact() {
   return (
@@ -40,7 +40,7 @@ export default function Contact() {
 
               <a href="tel:+33651560460" className="group flex items-center gap-8 p-10 rounded-2xl bg-surface border border-white/5 hover:border-lemon/30 transition-colors">
                 <div className="w-14 h-14 rounded-full bg-ink flex items-center justify-center group-hover:bg-lemon group-hover:text-ink transition-colors text-white">
-                  <Linkedin size={24} strokeWidth={1.5} />
+                  <Phone size={24} strokeWidth={1.5} />
                 </div>
                 <div>
                   <h3 className="text-xs uppercase tracking-[0.2em] text-paper/50 font-semibold mb-2">Téléphone</h3>

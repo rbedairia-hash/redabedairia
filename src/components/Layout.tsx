@@ -2,19 +2,22 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Instagram, Linkedin, Mail } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import RandomCharacterReveal from './SplitFlapText';
 
 const navLinks = [
   { name: 'Accueil', path: '/' },
-  { name: 'Profil', path: '/about' },
   { name: 'Expertise', path: '/expertise' },
   { name: 'Projets', path: '/projects' },
   { name: 'Photographie', path: '/photography' },
-  { name: 'CV', path: '/cv' },
+  { name: 'Process', path: '/process' },
+  { name: 'PROFIL & CV', path: '/profile-cv' },
   { name: 'Contact', path: '/contact' },
 ];
 
 export default function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [isLogoHovered, setIsLogoHovered] = useState(false);
   const location = useLocation();
 
   const [scrolled, setScrolled] = useState(false);
@@ -41,8 +44,13 @@ export default function Layout() {
         }`}
       >
         <div className="max-w-[90rem] mx-auto px-6 flex justify-between items-center relative z-10">
-          <Link to="/" className="text-2xl font-display font-bold tracking-tighter text-white">
-            <span className="text-lemon">Réda</span> Bédaïria<span className="text-lemon">.</span>
+          <Link 
+            to="/" 
+            className="text-2xl font-display font-bold tracking-tighter text-white"
+            onMouseEnter={() => setIsLogoHovered(true)}
+            onMouseLeave={() => setIsLogoHovered(false)}
+          >
+            <span className="text-lemon"><RandomCharacterReveal text="Réda" isActive={isLogoHovered} /></span> <RandomCharacterReveal text="Bédaïria" isActive={isLogoHovered} /><span className="text-lemon"><RandomCharacterReveal text="." isActive={isLogoHovered} /></span>
           </Link>
           
           {/* Desktop Nav */}
@@ -51,11 +59,16 @@ export default function Layout() {
               <Link 
                 key={link.path} 
                 to={link.path}
-                className={`text-xs tracking-[0.15em] uppercase font-semibold transition-all duration-300 hover:text-lemon ${
+                onMouseEnter={() => setHoveredLink(link.name)}
+                onMouseLeave={() => setHoveredLink(null)}
+                className={`text-xs tracking-[0.15em] uppercase font-semibold transition-all duration-300 ${
                   location.pathname === link.path ? 'text-lemon' : 'text-paper/60'
                 }`}
               >
-                {link.name}
+                <RandomCharacterReveal 
+                  text={link.name} 
+                  isActive={hoveredLink === link.name || location.pathname === link.path}
+                />
               </Link>
             ))}
           </nav>
@@ -116,8 +129,14 @@ export default function Layout() {
         </AnimatePresence>
       </main>
 
+      {/* Ligne au-dessus du footer en green lemon avec dégradé */}
+      <div className="w-full relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100vw+2rem)] max-w-[92rem] h-[2px] bg-gradient-to-r from-transparent via-lemon to-transparent z-30 opacity-80" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[calc(100vw+2rem)] max-w-[92rem] h-[6px] bg-gradient-to-r from-transparent via-lemon to-transparent z-30 blur-sm opacity-40" />
+      </div>
+
       {/* Footer */}
-      <footer className="border-t border-white/5 mt-32 bg-ink">
+      <footer className="bg-ink">
         <div className="max-w-[90rem] mx-auto px-6 py-16 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-sm text-paper/40 font-medium tracking-wide">
             © {new Date().getFullYear()} Réda Bédaïria. Tous droits réservés.

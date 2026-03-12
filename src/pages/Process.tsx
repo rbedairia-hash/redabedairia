@@ -30,7 +30,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <div className="w-full min-h-screen pt-32 pb-24">
+    <div className="w-full min-h-screen pt-32 pb-24 bg-ink">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -46,7 +46,7 @@ export default function Process() {
           </p>
         </motion.div>
 
-        <div className="relative border-l border-border ml-4 md:ml-12 pl-8 md:pl-16 flex flex-col gap-24 py-12">
+        <div className="relative border-l border-muted ml-4 md:ml-12 pl-8 md:pl-16 flex flex-col gap-24 py-12">
           {steps.map((step, index) => (
             <motion.div
               key={index}
@@ -57,11 +57,11 @@ export default function Process() {
               className="relative group"
             >
               {/* Timeline dot */}
-              <div className="absolute -left-[33px] md:-left-[65px] top-2 w-4 h-4 rounded-full bg-border group-hover:bg-lemon transition-colors duration-300 z-10" />
-              <div className="absolute -left-[37px] md:-left-[69px] top-1 w-6 h-6 rounded-full border border-border group-hover:border-lemon/50 transition-colors duration-300 z-0" />
+              <div className="absolute -left-[33px] md:-left-[65px] top-2 w-4 h-4 rounded-full bg-muted group-hover:bg-lemon transition-colors duration-300 z-10" />
+              <div className="absolute -left-[37px] md:-left-[69px] top-1 w-6 h-6 rounded-full border border-muted group-hover:border-lemon/50 transition-colors duration-300 z-0" />
               
               <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-start">
-                <div className="text-5xl md:text-7xl font-display font-medium text-surface group-hover:text-border transition-colors duration-500 select-none">
+                <div className="text-5xl md:text-7xl font-display font-medium text-white group-hover:text-muted transition-colors duration-500 select-none">
                   {step.number}
                 </div>
                 <div className="flex-1 pt-2">

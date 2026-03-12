@@ -31,7 +31,7 @@ export default function Photography() {
         </motion.div>
       </div>
 
-      <div className="w-full px-4 md:px-8 pb-32">
+      <div className="max-w-[90rem] mx-auto px-6 pb-32">
         <div className="columns-1 md:columns-2 lg:columns-3 gap-4 md:gap-8 space-y-4 md:space-y-8">
           {photos.map((photo, index) => (
             <motion.div

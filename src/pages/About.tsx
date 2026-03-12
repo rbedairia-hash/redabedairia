@@ -1,10 +1,6 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
+import { motion } from 'motion/react';
 
 export default function About() {
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 1000], [0, 50]);
-
   return (
     <div className="w-full min-h-screen pt-40 pb-32 bg-ink">
       <div className="max-w-[90rem] mx-auto px-6">
@@ -26,14 +22,14 @@ export default function About() {
             transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
             className="lg:col-span-5 sticky top-40 flex justify-center"
           >
-            <div className="relative aspect-[3/4] w-full max-w-md">
-              <motion.img 
-                style={{ y }}
-                src="/portrait.png?v=4" 
+            <div className="relative aspect-[4/5] w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl bg-surface border border-white/10">
+              <img 
+                src="/portrait.png?v=5" 
                 alt="Portrait du designer" 
-                className="absolute top-[-10%] left-0 w-full h-[120%] object-contain object-bottom grayscale-[30%] hover:grayscale-0 transition-all duration-1000 ease-out z-10 drop-shadow-2xl"
+                className="absolute top-0 left-0 w-full h-full object-cover z-10"
                 referrerPolicy="no-referrer"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/20 via-transparent to-transparent z-20 pointer-events-none" />
             </div>
           </motion.div>
 
