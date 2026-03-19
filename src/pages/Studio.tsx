@@ -1,5 +1,9 @@
-import { motion } from 'motion/react';
+import { useRef, useEffect } from 'react';
 import { Download } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
@@ -73,26 +77,88 @@ const skills = [
 ];
 
 export default function Studio() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const portraitRef = useRef<HTMLDivElement>(null);
+  const textBlockRef = useRef<HTMLDivElement>(null);
+  const experienceRef = useRef<HTMLElement>(null);
+  const skillsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Titre depuis la gauche
+    if (titleRef.current) {
+      gsap.set(titleRef.current, { x: -200, opacity: 0 });
+      ScrollTrigger.create({
+        trigger: titleRef.current,
+        start: 'top 92%', end: 'top 20%', scrub: 1.2,
+        animation: gsap.to(titleRef.current, { x: 0, opacity: 1 }),
+      });
+    }
+
+    // Portrait depuis la gauche
+    if (portraitRef.current) {
+      gsap.set(portraitRef.current, { x: -150, opacity: 0 });
+      ScrollTrigger.create({
+        trigger: portraitRef.current,
+        start: 'top 92%', end: 'top 30%', scrub: 1.2,
+        animation: gsap.to(portraitRef.current, { x: 0, opacity: 1, ease: 'power2.out' }),
+      });
+    }
+
+    // Bloc texte depuis la droite
+    if (textBlockRef.current) {
+      gsap.set(textBlockRef.current, { x: 150, opacity: 0 });
+      ScrollTrigger.create({
+        trigger: textBlockRef.current,
+        start: 'top 92%', end: 'top 20%', scrub: 1.2,
+        animation: gsap.to(textBlockRef.current, { x: 0, opacity: 1, ease: 'power2.out' }),
+      });
+    }
+
+    // Expériences timeline alternance
+    if (experienceRef.current) {
+      const items = experienceRef.current.querySelectorAll<HTMLElement>('.exp-item');
+      items.forEach((item, i) => {
+        const fromX = i % 2 === 0 ? -120 : 120;
+        gsap.set(item, { x: fromX, opacity: 0 });
+        ScrollTrigger.create({
+          trigger: item,
+          start: 'top 92%', end: 'top 20%', scrub: 1.2,
+          animation: gsap.to(item, { x: 0, opacity: 1, ease: 'power2.out' }),
+        });
+      });
+    }
+
+    // Compétences depuis la droite en stagger
+    if (skillsRef.current) {
+      const items = skillsRef.current.querySelectorAll<HTMLElement>('.skill-item');
+      items.forEach((item, i) => {
+        gsap.set(item, { x: 80 + i * 10, opacity: 0 });
+        ScrollTrigger.create({
+          trigger: item,
+          start: 'top 95%', end: 'top 30%', scrub: 1,
+          animation: gsap.to(item, { x: 0, opacity: 1, ease: 'power2.out' }),
+        });
+      });
+    }
+
+    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  }, []);
+
   return (
     <div className="w-full min-h-screen pt-40 pb-32 bg-ink">
       <div className="max-w-[90rem] mx-auto px-6">
         {/* Section Profil */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-32"
-        >
-          <h1 className="text-6xl md:text-[5.5rem] font-display font-bold tracking-tighter mb-10 leading-[1.05] text-white">
+        <div className="mb-32">
+          <h1 ref={titleRef} className="text-6xl md:text-[5.5rem] font-display font-bold tracking-tighter mb-10 leading-[1.05] text-white">
             Studio<span className="text-lemon">.</span>
           </h1>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-12 gap-16 md:gap-24 items-start mb-32">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+          <div 
+            ref={portraitRef}
             className="lg:col-span-5 sticky top-40 flex justify-center"
           >
             <div className="relative aspect-[4/5] w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl bg-surface border border-white/10">
@@ -104,12 +170,10 @@ export default function Studio() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/20 via-transparent to-transparent z-20 pointer-events-none" />
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          <div 
+            ref={textBlockRef}
             className="lg:col-span-7 flex flex-col gap-16 text-lg md:text-xl text-paper/70 font-light leading-relaxed"
           >
             <p className="text-3xl md:text-4xl text-white font-display font-medium leading-[1.2] tracking-tight">
@@ -149,16 +213,11 @@ export default function Studio() {
                 <span className="text-xs uppercase tracking-[0.2em] font-semibold text-lemon">Maîtrise de la chaîne</span>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Section CV */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-          className="mb-32 flex flex-col md:flex-row justify-between items-start md:items-end gap-12"
-        >
+        <div className="mb-32 flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
           <div className="max-w-4xl">
             <h2 className="text-5xl md:text-[4rem] font-display font-bold tracking-tighter mb-6 text-white">
               Parcours Professionnel<span className="text-lemon">.</span>
@@ -170,24 +229,18 @@ export default function Studio() {
           <button className="shrink-0 inline-flex items-center gap-3 bg-lemon text-ink px-8 py-4 rounded-full font-semibold hover:bg-white transition-colors text-sm tracking-wide uppercase">
             <Download size={18} /> Télécharger le PDF
           </button>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-12 gap-16 md:gap-24">
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-            className="lg:col-span-8 flex flex-col gap-32"
-          >
+          <div className="lg:col-span-8 flex flex-col gap-32">
             {/* Expérience */}
-            <section>
+            <section ref={experienceRef}>
               <h3 className="text-4xl font-display font-medium mb-16 flex items-center gap-6 text-white">
                 <span className="w-12 h-[1px] bg-lemon block" /> Expérience
               </h3>
               <div className="flex flex-col gap-16">
                 {experiences.map((exp, index) => (
-                  <div key={index} className="grid md:grid-cols-[200px_1fr] gap-4 md:gap-12 group">
+  <div key={index} className="exp-item grid md:grid-cols-[200px_1fr] gap-4 md:gap-12 group">
                     <div className="text-lemon font-mono text-sm uppercase tracking-[0.2em] pt-2">
                       {exp.period}
                     </div>
@@ -210,7 +263,7 @@ export default function Studio() {
               </h3>
               <div className="flex flex-col gap-16">
                 {education.map((edu, index) => (
-                  <div key={index} className="grid md:grid-cols-[200px_1fr] gap-4 md:gap-12 group">
+                  <div key={index} className="exp-item grid md:grid-cols-[200px_1fr] gap-4 md:gap-12 group">
                     <div className="text-lemon font-mono text-sm uppercase tracking-[0.2em] pt-2">
                       {edu.period}
                     </div>
@@ -222,28 +275,22 @@ export default function Studio() {
                 ))}
               </div>
             </section>
-          </motion.div>
+          </div>
 
           {/* Compétences */}
-          <motion.div 
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
-            className="lg:col-span-4"
-          >
-            <div className="sticky top-40 p-10 rounded-2xl bg-surface border border-white/5">
+          <div className="lg:col-span-4">
+            <div ref={skillsRef} className="sticky top-40 p-10 rounded-2xl bg-surface border border-white/5">
               <h3 className="text-3xl font-display font-medium mb-10 text-white">Compétences</h3>
               <ul className="flex flex-col gap-6">
                 {skills.map((skill, index) => (
-                  <li key={index} className="flex items-start gap-4 text-paper/80 font-light text-lg">
+                  <li key={index} className="skill-item flex items-start gap-4 text-paper/80 font-light text-lg">
                     <span className="text-lemon mt-2 text-xs">■</span>
                     <span>{skill}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>

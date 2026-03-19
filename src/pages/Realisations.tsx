@@ -1,5 +1,9 @@
-import { motion } from 'motion/react';
+import { useRef, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
@@ -29,32 +33,57 @@ const projects = [
 ];
 
 export default function Realisations() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Titre depuis la gauche
+    if (titleRef.current) {
+      gsap.set(titleRef.current, { x: -200, opacity: 0 });
+      ScrollTrigger.create({
+        trigger: titleRef.current,
+        start: 'top 92%', end: 'top 20%', scrub: 1.2,
+        animation: gsap.to(titleRef.current, { x: 0, opacity: 1, ease: 'power2.out' }),
+      });
+    }
+
+    // Cards alternance gauche/droite
+    if (gridRef.current) {
+      const cards = gridRef.current.querySelectorAll<HTMLElement>('.project-card');
+      cards.forEach((card, i) => {
+        const fromX = i % 2 === 0 ? -130 : 130;
+        gsap.set(card, { x: fromX, opacity: 0 });
+        ScrollTrigger.create({
+          trigger: card,
+          start: 'top 92%', end: 'top 20%', scrub: 1.2,
+          animation: gsap.to(card, { x: 0, opacity: 1, ease: 'power2.out' }),
+        });
+      });
+    }
+
+    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  }, []);
+
   return (
     <div className="w-full min-h-screen pt-40 pb-32 bg-ink">
       <div className="max-w-[90rem] mx-auto px-6">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-32 max-w-4xl"
-        >
-          <h1 className="text-6xl md:text-[5.5rem] font-display font-bold tracking-tighter mb-10 leading-[1.05] text-white">
+        <div className="mb-32 max-w-4xl">
+          <h1 ref={titleRef} className="text-6xl md:text-[5.5rem] font-display font-bold tracking-tighter mb-10 leading-[1.05] text-white">
             Réalisations<span className="text-lemon">.</span>
           </h1>
           <p className="text-xl md:text-2xl text-paper/80 font-light leading-relaxed">
             Une sélection de réalisations récentes, illustrant mon approche du design, de la photographie et de la production imprimée.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="flex flex-col gap-32 md:gap-48">
+        <div ref={gridRef} className="flex flex-col gap-32 md:gap-48" style={{ transformStyle: 'preserve-3d' }}>
           {projects.map((project, index) => (
-            <motion.div
+            <div
               key={project.id}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="group cursor-pointer relative"
+              className="project-card group cursor-pointer relative"
+              style={{ transformStyle: 'preserve-3d' }}
             >
               <div className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-surface shadow-2xl group-hover:shadow-lemon/5 transition-shadow duration-700">
                 <div className="absolute inset-0 bg-ink/30 group-hover:bg-ink/10 transition-colors duration-700 z-10 pointer-events-none" />
@@ -78,7 +107,7 @@ export default function Realisations() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
