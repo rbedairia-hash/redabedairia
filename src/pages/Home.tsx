@@ -41,58 +41,49 @@ export default function Home() {
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
-    // Titre depuis la gauche
-    if (sectionTitleRef.current) {
-      gsap.set(sectionTitleRef.current, { x: -200, opacity: 0 });
+  // Titre depuis la gauche
+  gsap.set(sectionTitleRef.current, { x: -80, opacity: 0 });
+  ScrollTrigger.create({
+    trigger: sectionTitleRef.current,
+    start: 'top 85%',
+    onEnter: () => gsap.to(sectionTitleRef.current, { x: 0, opacity: 1, duration: 1, ease: 'power3.out' }),
+    onLeaveBack: () => gsap.to(sectionTitleRef.current, { x: -80, opacity: 0, duration: 0.6, ease: 'power3.in' }),
+  });
+
+  // Sous-titre depuis la droite
+  gsap.set(sectionBodyRef.current, { x: 80, opacity: 0 });
+  ScrollTrigger.create({
+    trigger: sectionBodyRef.current,
+    start: 'top 85%',
+    onEnter: () => gsap.to(sectionBodyRef.current, { x: 0, opacity: 1, duration: 1, ease: 'power3.out' }),
+    onLeaveBack: () => gsap.to(sectionBodyRef.current, { x: 80, opacity: 0, duration: 0.6, ease: 'power3.in' }),
+  });
+
+  // Cards alternance gauche/droite
+  if (cardsRef.current) {
+    const cards = cardsRef.current.querySelectorAll<HTMLElement>('.trust-card');
+    cards.forEach((card, i) => {
+      const fromX = i % 2 === 0 ? -100 : 100;
+      gsap.set(card, { x: fromX, opacity: 0 });
       ScrollTrigger.create({
-        trigger: sectionTitleRef.current,
-        start: 'top 92%',
-        end: 'top 20%',
-        scrub: 1.2,
-        animation: gsap.to(sectionTitleRef.current, { x: 0, opacity: 1, ease: 'power2.out' }),
+        trigger: cardsRef.current,
+        start: 'top 80%',
+        onEnter: () => gsap.to(card, { 
+          x: 0, opacity: 1, duration: 0.9, 
+          delay: i * 0.15, ease: 'power3.out' 
+        }),
+        onLeaveBack: () => gsap.to(card, { 
+          x: fromX, opacity: 0, duration: 0.5, 
+          ease: 'power3.in' 
+        }),
       });
-    }
+    });
+  }
 
-    // Sous-titre depuis la droite
-    if (sectionBodyRef.current) {
-      gsap.set(sectionBodyRef.current, { x: 150, opacity: 0 });
-      ScrollTrigger.create({
-        trigger: sectionBodyRef.current,
-        start: 'top 92%',
-        end: 'top 20%',
-        scrub: 1.2,
-        animation: gsap.to(sectionBodyRef.current, { x: 0, opacity: 1, ease: 'power2.out' }),
-      });
-    }
-
-    // Cards en stagger alternance gauche/droite
-    if (cardsRef.current) {
-      const cards = cardsRef.current.querySelectorAll<HTMLElement>('.trust-card');
-      cards.forEach((card, i) => {
-        const fromX = i % 2 === 0 ? -120 : 120;
-        gsap.set(card, { x: fromX, opacity: 0 });
-        ScrollTrigger.create({
-          trigger: card,
-          start: 'top 92%',
-          end: 'top 20%',
-          scrub: 1.2,
-          animation: gsap.to(card, { x: 0, opacity: 1, ease: 'power2.out' }),
-        });
-      });
-    }
-
-    return () => {
-      ScrollTrigger.getAll().forEach(t => {
-        if (t.trigger === sectionTitleRef.current || 
-            t.trigger === sectionBodyRef.current || 
-            (cardsRef.current && cardsRef.current.contains(t.trigger as Node))) {
-          t.kill();
-        }
-      });
-    };
-  }, []);
+  return () => ScrollTrigger.getAll().forEach(t => t.kill());
+}, []);
 
   return (
     <div className="w-full">
